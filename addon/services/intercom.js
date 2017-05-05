@@ -123,12 +123,22 @@ export default Service.extend(Evented, {
    */
   hideDefaultLauncher: false,
 
-  /**
-   * @private
-   * alias for appId
-   * @type {[type]}
-   */
-  appId: alias('config.appId'),
+    if (get(this, '_hasUserContext')) {
+      let userProperties = get(this, 'config.userProperties');
+      let keys = Object.keys(userProperties);
+
+      for (let i = 0; i < keys.length; i++) {
+        let property = get(this, `config.userProperties.${keys[i]}`).toString();
+
+        if (this.user[property]) {
+          obj[get(userProperties, keys[i])] = this.user[property];
+        }
+      }
+    }
+    // jscs:enable requireCamelCaseOrUpperCaseIdentifiers
+
+    return obj;
+  }),
 
   start(bootConfig = {}) {
     let _bootConfig = assign(get(this, '_intercomBootConfig'), bootConfig);
