@@ -15,6 +15,7 @@ module.exports = {
     app.import('vendor/intercom-shim.js');
   },
 
+
   treeForVendor: function() {
     return path.join(__dirname, 'client');
   }
