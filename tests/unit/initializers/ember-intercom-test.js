@@ -1,18 +1,14 @@
-import Ember from 'ember';
+import Application from '@ember/application';
+import { run } from '@ember/runloop';
 import EmberIntercomInitializer from 'dummy/initializers/ember-intercom';
 import { module, test } from 'qunit';
-
-const {
-  Application,
-  run
-} = Ember;
 
 let application;
 
 // jscs:disable requireCamelCaseOrUpperCaseIdentifiers
 const mockConfig = {
   intercom: {
-    app_id: '1'
+    app_id: '1' // eslint-disable-line
   }
 };
 // jscs:enable requireCamelCaseOrUpperCaseIdentifiers

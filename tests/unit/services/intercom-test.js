@@ -1,12 +1,8 @@
-import Ember from 'ember';
-import { moduleFor } from 'ember-qunit';
-import test from 'dummy/tests/ember-sinon-qunit/test';
+import { module, test } from 'qunit';
+import { setupTest } from 'ember-qunit';
 import sinon from 'sinon';
-
-const {
-  run,
-  set
-} = Ember;
+import { setProperties } from '@ember/object';
+import { settled } from '@ember/test-helpers';
 
 const mockConfig = {
   intercom: {
@@ -19,12 +15,15 @@ const mockConfig = {
     appId: '1'
   }
 };
+let intercomStub;
 
-let intercomStub = null;
+module('Unit | Service | intercom', function(hooks) {
 
-moduleFor('service:intercom', 'Unit | Service | intercom', {
-  beforeEach() {
-    this.register('service:config', mockConfig, { instantiate: false });
+  setupTest(hooks);
+  hooks.beforeEach(function() {
+    this.owner.register('service:config', mockConfig, { instantiate: false });
+
+    let service = this.owner.lookup('service:intercom');
 
     intercomStub = sinon.stub();
 
